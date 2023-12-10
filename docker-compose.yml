@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    restart: unless-stopped
+    volumes:
+      - ollama:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - OLLAMA_ORIGINS=*
+    networks:
+      - ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  ollama-webui:
+    image: ghcr.io/ollama-webui/ollama-webui:main
+    container_name: ollama-webui
+    restart: unless-stopped
+    environment:
+      - OLLAMA_API_BASE_URL=http://ollama:11434/api
+    networks:
+      - ollama
+
+  caddy:
+    image: caddy:2.7
+    restart: unless-stopped
+    ports:
+      - 3001:3001
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - ollama
+
+networks:
+  ollama:
+
+volumes:
+  ollama:
+  caddy_data:
+  caddy_config:

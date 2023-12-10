@@ -1,0 +1,15 @@
+{
+	admin off
+}
+
+:3001 {
+	encode zstd gzip
+	# tls internal
+
+	log {
+		output stdout
+		format console
+	}
+
+	reverse_proxy ollama-webui:8080
+}
