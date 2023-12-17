@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
+      - ./models:/models
     environment:
       - OLLAMA_HOST=0.0.0.0
       - OLLAMA_ORIGINS=*
@@ -20,9 +21,7 @@ services:
               capabilities: [gpu]
 
   ollama-webui:
-    build:
-      context: ollama-webui
-    #image: ghcr.io/ollama-webui/ollama-webui:main
+    image: ghcr.io/ollama-webui/ollama-webui:main
     restart: unless-stopped
     ports:
       - 3000:8080
