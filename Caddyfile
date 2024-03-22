@@ -2,14 +2,59 @@
 	admin off
 }
 
-:3001 {
+(default) {
 	encode zstd gzip
-	# tls internal
 
 	log {
 		output stdout
 		format console
 	}
+}
 
-	reverse_proxy ollama-webui:8080
+(default_proxy_config) {
+	header_up Host {http.request.host}
+	header_up X-Real-IP {http.request.remote.host}
+}
+
+(openai_proxy) {
+	route /openai/v1/* {
+		uri strip_prefix /openai
+		reverse_proxy https://api.openai.com {
+			header_up Host api.openai.com
+			header_up Authorization "Bearer {$OPENAI_API_KEY}"
+		}
+	}
+}
+
+http://gpt.{$FQDN} :80 {
+	import default
+	import openai_proxy
+
+	reverse_proxy http://ollama-webui-local:8080 {
+		import default_proxy_config
+	}
+}
+
+http://ollama.{$FQDN} {
+	import default
+
+	reverse_proxy http://ollama-webui:8080 {
+		import default_proxy_config
+	}
+}
+
+http://yakgpt.{$FQDN} {
+	import default
+
+	reverse_proxy http://yakgpt:3000 {
+		import default_proxy_config
+	}
+}
+
+http://nextchat.{$FQDN} {
+	import default
+
+	reverse_proxy http://nextchat:3000 {
+		import default_proxy_config
+	}
 }

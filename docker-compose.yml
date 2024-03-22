@@ -1,12 +1,29 @@
 version: "3.8"
 
 services:
+  caddy:
+    image: caddy:2.7
+    restart: unless-stopped
+    ports:
+      - 3000:80
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - ollama
+    environment:
+      - FQDN=$FQDN
+      - OPENAI_API_KEY=$OPENAI_API_KEY
+
   ollama:
     image: ollama/ollama
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
       - ./models:/models
+    ports:
+      - 11434:11434
     environment:
       - OLLAMA_HOST=0.0.0.0
       - OLLAMA_ORIGINS=*
@@ -20,32 +37,72 @@ services:
               count: 1
               capabilities: [gpu]
 
-  ollama-webui:
-    image: ghcr.io/ollama-webui/ollama-webui:main
+  ollama-webui-local:
+    image: ollama-webui:local
     restart: unless-stopped
+    init: true
     ports:
-      - 3000:8080
+      - 3001:8080
     environment:
       - OLLAMA_API_BASE_URL=http://ollama:11434/api
     networks:
       - ollama
 
-  caddy:
-    image: caddy:2.7
+  ollama-webui:
+    image: ghcr.io/ollama-webui/ollama-webui:main
     restart: unless-stopped
-    ports:
-      - 3001:3001
+    init: true
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
+      - ollama-webui:/app/backend/data
+    ports:
+      - 3002:8080
+    environment:
+      - OLLAMA_API_BASE_URL=http://ollama:11434/api
+      - OPENAI_API_BASE_URL=http://caddy/openai/v1
     networks:
       - ollama
+
+  ollama-webui-lite:
+    image: ollama-webui-lite:main
+    restart: unless-stopped
+    ports:
+      - 3003:80
+    networks:
+      - ollama
+
+  yakgpt:
+    image: yakgpt/yakgpt:latest
+    restart: unless-stopped
+    ports:
+      - 3004:3000
+    networks:
+      - ollama
+
+  nextchat:
+    image: nextchat:custom
+    restart: unless-stopped
+    ports:
+      - 3005:3000
+    networks:
+      - ollama
+    environment:
+      - OPENAI_API_KEY=any
+      - GOOGLE_API_KEY=
+      - CODE=
+      - BASE_URL=http://caddy/openai
+      - OPENAI_ORG_ID=
+      - HIDE_USER_API_KEY=1
+      - DISABLE_GPT4=
+      - ENABLE_BALANCE_QUERY=
+      - DISABLE_FAST_LINK=
+      - OPENAI_SB=
+      - CUSTOM_MODELS=-all,gpt-3.5-turbo,gpt-4-1106-preview=gpt-4-turbo
 
 networks:
   ollama:
 
 volumes:
   ollama:
+  ollama-webui:
   caddy_data:
   caddy_config:
