@@ -18,19 +18,35 @@ services:
 
   litellm:
     image: ghcr.io/berriai/litellm:main-latest
+    restart: unless-stopped
     volumes:
-      - ./proxy_server_config.yaml:/app/proxy_server_config.yaml
+      - ./litellm_config.yaml:/app/litellm_config.yaml
       - ./.google_credentials.json:/app/google_credentials.json
     networks:
       - ollama
+      - postgres
     ports:
       - 4000:4000
+    command: [ "--config", "/app/litellm_config.yaml", "--port", "4000", "--num_workers", "8" ]
     environment:
+      - ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY
       - GOOGLE_APPLICATION_CREDENTIALS=/app/google_credentials.json
       - OPENAI_API_KEY=$OPENAI_API_KEY
-      - ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY
-      - UI_USERNAME=$UI_USERNAME
+      - POSTGRES_DB_URL=$POSTGRES_DB_URL
       - UI_PASSWORD=$UI_PASSWORD
+      - UI_USERNAME=$UI_USERNAME
+
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    shm_size: 128mb
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    networks:
+      - postgres
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
   ollama:
     image: ollama/ollama
@@ -112,13 +128,15 @@ services:
       - ENABLE_BALANCE_QUERY=
       - DISABLE_FAST_LINK=
       - OPENAI_SB=
-      - CUSTOM_MODELS=-all,gpt-3.5-turbo,gpt-4-1106-preview=gpt-4-turbo
+      - CUSTOM_MODELS=-all,gpt-3.5-turbo,gpt-4-turbo
 
 networks:
+  postgres:
   ollama:
 
 volumes:
-  ollama:
-  ollama-webui:
-  caddy_data:
   caddy_config:
+  caddy_data:
+  postgres_db:
+  ollama-webui:
+  ollama:
