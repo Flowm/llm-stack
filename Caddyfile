@@ -26,9 +26,18 @@
 	}
 }
 
+(litellm_proxy) {
+	route /litellm/v1/* {
+		uri strip_prefix /litellm
+		reverse_proxy http://litellm:4000 {
+		}
+	}
+}
+
 http://gpt.{$FQDN} :80 {
 	import default
 	import openai_proxy
+	import litellm_proxy
 
 	reverse_proxy http://ollama-webui-local:8080 {
 		import default_proxy_config

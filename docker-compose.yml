@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   caddy:
@@ -15,6 +15,22 @@ services:
     environment:
       - FQDN=$FQDN
       - OPENAI_API_KEY=$OPENAI_API_KEY
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    volumes:
+      - ./proxy_server_config.yaml:/app/proxy_server_config.yaml
+      - ./.google_credentials.json:/app/google_credentials.json
+    networks:
+      - ollama
+    ports:
+      - 4000:4000
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/google_credentials.json
+      - OPENAI_API_KEY=$OPENAI_API_KEY
+      - ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY
+      - UI_USERNAME=$UI_USERNAME
+      - UI_PASSWORD=$UI_PASSWORD
 
   ollama:
     image: ollama/ollama
