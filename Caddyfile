@@ -34,9 +34,9 @@
 	}
 }
 
-http://gpt.{$FQDN} :80 {
+http://chat.{$FQDN} :80 {
 	import default
-	import openai_proxy
+	# import openai_proxy
 	import litellm_proxy
 
 	reverse_proxy http://ollama-webui-local:8080 {
@@ -52,18 +52,18 @@ http://ollama.{$FQDN} {
 	}
 }
 
-http://yakgpt.{$FQDN} {
-	import default
-
-	reverse_proxy http://yakgpt:3000 {
-		import default_proxy_config
-	}
-}
-
 http://nextchat.{$FQDN} {
 	import default
 
 	reverse_proxy http://nextchat:3000 {
+		import default_proxy_config
+	}
+}
+
+http://yakgpt.{$FQDN} {
+	import default
+
+	reverse_proxy http://yakgpt:3000 {
 		import default_proxy_config
 	}
 }
