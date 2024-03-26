@@ -10,15 +10,15 @@ model_list:
   - model_name: google-gemini-1.0-pro
     litellm_params:
       model: vertex_ai/gemini-1.0-pro
-      vertex_project: "vertex-llm-418003"
-      vertex_location: "europe-west3"
-  - model_name: anthropic-claude-3-opus
-    litellm_params:
-      model: claude-3-opus-20240229
-      api_key: os.environ/ANTHROPIC_API_KEY
+      vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
+      vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
   - model_name: anthropic-claude-3-sonnet
     litellm_params:
       model: claude-3-sonnet-20240229
+      api_key: os.environ/ANTHROPIC_API_KEY
+  - model_name: anthropic-claude-3-opus
+    litellm_params:
+      model: claude-3-opus-20240229
       api_key: os.environ/ANTHROPIC_API_KEY
 
 litellm_settings:

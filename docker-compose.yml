@@ -5,13 +5,13 @@ services:
     image: caddy:2.7
     restart: unless-stopped
     ports:
-      - 3000:80
+      - 127.0.0.1:3000:80
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
     networks:
-      - ollama
+      - caddy
     environment:
       - FQDN=$FQDN
       - OPENAI_API_KEY=$OPENAI_API_KEY
@@ -21,16 +21,19 @@ services:
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
-      - ./.google_credentials.json:/app/google_credentials.json
+      - $GOOGLE_CREDENTIAL_PATH:/app/google_credentials.json
     networks:
-      - ollama
+      - caddy
       - postgres
+      - ollama
     ports:
-      - 4000:4000
+      - 127.0.0.1:4000:4000
     command: [ "--config", "/app/litellm_config.yaml", "--port", "4000", "--num_workers", "8" ]
     environment:
       - ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY
       - GOOGLE_APPLICATION_CREDENTIALS=/app/google_credentials.json
+      - GOOGLE_VERTEX_PROJECT=$GOOGLE_VERTEX_PROJECT
+      - GOOGLE_VERTEX_LOCATION=$GOOGLE_VERTEX_LOCATION
       - OPENAI_API_KEY=$OPENAI_API_KEY
       - POSTGRES_DB_URL=$POSTGRES_DB_URL
       - UI_PASSWORD=$UI_PASSWORD
@@ -55,7 +58,7 @@ services:
       - ollama:/root/.ollama
       - ./models:/models
     ports:
-      - 11434:11434
+      - 127.0.0.1:11434:11434
     environment:
       - OLLAMA_HOST=0.0.0.0
       - OLLAMA_ORIGINS=*
@@ -74,63 +77,50 @@ services:
     restart: unless-stopped
     init: true
     ports:
-      - 3001:8080
+      - 127.0.0.1:3001:8080
     environment:
       - OLLAMA_API_BASE_URL=http://ollama:11434/api
     networks:
+      - caddy
       - ollama
 
-  ollama-webui:
-    image: ghcr.io/ollama-webui/ollama-webui:main
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
     restart: unless-stopped
     init: true
     volumes:
       - ollama-webui:/app/backend/data
     ports:
-      - 3002:8080
+      - 127.0.0.1:3002:8080
+    networks:
+      - caddy
     environment:
       - OLLAMA_API_BASE_URL=http://ollama:11434/api
-      - OPENAI_API_BASE_URL=http://caddy/openai/v1
-    networks:
-      - ollama
-
-  ollama-webui-lite:
-    image: ollama-webui-lite:main
-    restart: unless-stopped
-    ports:
-      - 3003:80
-    networks:
-      - ollama
-
-  yakgpt:
-    image: yakgpt/yakgpt:latest
-    restart: unless-stopped
-    ports:
-      - 3004:3000
-    networks:
-      - ollama
+      - OPENAI_API_BASE_URL=http://litellm:4000/
 
   nextchat:
     image: nextchat:custom
     restart: unless-stopped
     ports:
-      - 3005:3000
+      - 127.0.0.1:3003:3000
     networks:
-      - ollama
+      - caddy
     environment:
       - OPENAI_API_KEY=any
-      - GOOGLE_API_KEY=
-      - CODE=
-      - BASE_URL=http://caddy/openai
-      - OPENAI_ORG_ID=
+      - BASE_URL=http://litellm:4000/
       - HIDE_USER_API_KEY=1
-      - DISABLE_GPT4=
-      - ENABLE_BALANCE_QUERY=
-      - DISABLE_FAST_LINK=
-      - OPENAI_SB=
-      - CUSTOM_MODELS=-all,gpt-3.5-turbo,gpt-4-turbo
+      - CUSTOM_MODELS=-all,openai-gpt-3.5-turbo,openai-gpt-4-turbo-preview,google-gemini-1.0-pro,anthropic-claude-3-sonnet,anthropic-claude-3-opus
+
+  yakgpt:
+    image: yakgpt/yakgpt:latest
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:3004:3000
+    networks:
+      - caddy
 
 networks:
+  caddy:
   postgres:
   ollama:
 

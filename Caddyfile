@@ -12,7 +12,6 @@
 }
 
 (default_proxy_config) {
-	header_up Host {http.request.host}
 	header_up X-Real-IP {http.request.remote.host}
 }
 
@@ -27,16 +26,24 @@
 }
 
 (litellm_proxy) {
-	route /litellm/v1/* {
-		uri strip_prefix /litellm
+	route /openai/v1/* {
+		uri strip_prefix /openai
 		reverse_proxy http://litellm:4000 {
+			header_up Authorization "Bearer {http.request.header.X-Token-User-Email}"
 		}
+	}
+}
+
+http://litellm.{$FQDN} {
+	import default
+
+	reverse_proxy http://litellm:4000 {
+		import default_proxy_config
 	}
 }
 
 http://chat.{$FQDN} :80 {
 	import default
-	# import openai_proxy
 	import litellm_proxy
 
 	reverse_proxy http://ollama-webui-local:8080 {
@@ -44,16 +51,17 @@ http://chat.{$FQDN} :80 {
 	}
 }
 
-http://ollama.{$FQDN} {
+http://webui.{$FQDN} {
 	import default
 
-	reverse_proxy http://ollama-webui:8080 {
+	reverse_proxy http://open-webui:8080 {
 		import default_proxy_config
 	}
 }
 
 http://nextchat.{$FQDN} {
 	import default
+	import litellm_proxy
 
 	reverse_proxy http://nextchat:3000 {
 		import default_proxy_config
