@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   caddy:
     image: caddy:2.7
@@ -17,7 +15,7 @@ services:
       - OPENAI_API_KEY=$OPENAI_API_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:main-v1.34.1
+    image: ghcr.io/berriai/litellm:main-v1.34.10
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -28,7 +26,7 @@ services:
       - ollama
     ports:
       - 127.0.0.1:4000:4000
-    command: [ "--config", "/app/litellm_config.yaml", "--port", "4000", "--num_workers", "8" ]
+    command: [ "--config", "/app/litellm_config.yaml", "--port", "4000", "--num_workers", "4" ]
     environment:
       - ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY
       - GOOGLE_APPLICATION_CREDENTIALS=/app/google_credentials.json

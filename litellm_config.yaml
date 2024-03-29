@@ -20,6 +20,22 @@ model_list:
     litellm_params:
       model: claude-3-opus-20240229
       api_key: os.environ/ANTHROPIC_API_KEY
+  - model_name: local-mistral
+    litellm_params:
+      model: ollama/mistral:latest
+      api_base: http://ollama:11434
+  - model_name: local-mixtral
+    litellm_params:
+      model: ollama/mixtral:latest
+      api_base: http://ollama:11434
+  - model_name: local-mixtral-dolphin
+    litellm_params:
+      model: ollama/dolphin-mixtral:latest
+      api_base: http://ollama:11434
+  - model_name: local-google-gemma
+    litellm_params:
+      model: ollama/gemma:latest
+      api_base: http://ollama:11434
 
 litellm_settings:
   drop_params: True
