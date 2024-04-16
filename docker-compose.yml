@@ -15,7 +15,7 @@ services:
       - OPENAI_API_KEY=$OPENAI_API_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:main-v1.34.10
+    image: ghcr.io/berriai/litellm:main-v1.35.8
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -50,7 +50,7 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
   ollama:
-    image: ollama/ollama
+    image: ollama/ollama:0.1.32
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
