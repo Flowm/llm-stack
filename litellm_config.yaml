@@ -24,13 +24,9 @@ model_list:
     litellm_params:
       model: ollama/mistral:latest
       api_base: http://ollama:11434
-  - model_name: local-mixtral
+  - model_name: local-mixtral-8x7b
     litellm_params:
-      model: ollama/mixtral:latest
-      api_base: http://ollama:11434
-  - model_name: local-mixtral-dolphin
-    litellm_params:
-      model: ollama/dolphin-mixtral:latest
+      model: ollama/mixtral:8x7b
       api_base: http://ollama:11434
   - model_name: local-google-gemma
     litellm_params:
