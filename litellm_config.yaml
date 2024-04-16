@@ -7,9 +7,9 @@ model_list:
     litellm_params:
       model: gpt-4-turbo-preview
       api_key: os.environ/OPENAI_API_KEY
-  - model_name: google-gemini-1.0-pro
+  - model_name: google-gemini-1.5-pro
     litellm_params:
-      model: vertex_ai/gemini-1.0-pro
+      model: vertex_ai/gemini-1.5-pro-preview-0409
       vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
       vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
   - model_name: anthropic-claude-3-sonnet
