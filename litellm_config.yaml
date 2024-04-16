@@ -4,6 +4,11 @@ model_list:
       # https://platform.openai.com/docs/models/gpt-3-5-turbo
       model: gpt-3.5-turbo
       api_key: os.environ/OPENAI_API_KEY
+  - model_name: openai-gpt-4-turbo
+    litellm_params:
+      # https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4
+      model: gpt-4-turbo
+      api_key: os.environ/OPENAI_API_KEY
   - model_name: openai-gpt-4-turbo-preview
     litellm_params:
       # https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4
