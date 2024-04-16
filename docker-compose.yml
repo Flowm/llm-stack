@@ -83,7 +83,7 @@ services:
       - ollama
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:main
+    image: ghcr.io/open-webui/open-webui:v0.1.119
     restart: unless-stopped
     init: true
     volumes:
@@ -93,8 +93,8 @@ services:
     networks:
       - caddy
     environment:
-      - OLLAMA_API_BASE_URL=http://ollama:11434/api
-      - OPENAI_API_BASE_URL=http://litellm:4000/
+      - OPENAI_API_BASE_URL=http://litellm:4000
+      - OPENAI_API_KEY=sk-openwebui
 
   nextchat:
     image: nextchat:custom
