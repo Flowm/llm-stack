@@ -30,6 +30,14 @@ model_list:
       # https://docs.anthropic.com/claude/docs/models-overview
       model: claude-3-opus-20240229
       api_key: os.environ/ANTHROPIC_API_KEY
+  - model_name: local-google-gemma
+    litellm_params:
+      model: ollama/gemma:latest
+      api_base: http://ollama:11434
+  - model_name: local-llama3-8b
+    litellm_params:
+      model: ollama/llama3:8b
+      api_base: http://ollama:11434
   - model_name: local-mistral
     litellm_params:
       model: ollama/mistral:latest
@@ -37,10 +45,6 @@ model_list:
   - model_name: local-mixtral-8x7b
     litellm_params:
       model: ollama/mixtral:8x7b
-      api_base: http://ollama:11434
-  - model_name: local-google-gemma
-    litellm_params:
-      model: ollama/gemma:latest
       api_base: http://ollama:11434
 
 litellm_settings:
