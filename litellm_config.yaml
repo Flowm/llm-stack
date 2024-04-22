@@ -30,6 +30,11 @@ model_list:
       # https://docs.anthropic.com/claude/docs/models-overview
       model: claude-3-opus-20240229
       api_key: os.environ/ANTHROPIC_API_KEY
+  - model_name: groq-llama3-70b
+    litellm_params:
+      # https://console.groq.com/docs/models
+      model: groq/llama3-70b-8192
+      api_key: os.environ/GROQ_API_KEY
   - model_name: local-google-gemma
     litellm_params:
       model: ollama/gemma:latest
