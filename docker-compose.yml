@@ -15,7 +15,7 @@ services:
       - OPENAI_API_KEY=$OPENAI_API_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:main-v1.35.8
+    image: ghcr.io/berriai/litellm:main-v1.35.18
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -30,8 +30,8 @@ services:
     environment:
       - ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY
       - GOOGLE_APPLICATION_CREDENTIALS=/app/google_credentials.json
-      - GOOGLE_VERTEX_PROJECT=$GOOGLE_VERTEX_PROJECT
       - GOOGLE_VERTEX_LOCATION=$GOOGLE_VERTEX_LOCATION
+      - GOOGLE_VERTEX_PROJECT=$GOOGLE_VERTEX_PROJECT
       - GROQ_API_KEY=$GROQ_API_KEY
       - OPENAI_API_KEY=$OPENAI_API_KEY
       - POSTGRES_DB_URL=$POSTGRES_DB_URL
