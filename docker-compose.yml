@@ -39,7 +39,7 @@ services:
       - UI_USERNAME=$UI_USERNAME
 
   postgres:
-    image: postgres
+    image: postgres:16.2
     restart: unless-stopped
     shm_size: 128mb
     volumes:
@@ -71,37 +71,27 @@ services:
               count: 1
               capabilities: [gpu]
 
-  ollama-webui-local:
-    image: ollama-webui:local
-    restart: unless-stopped
-    init: true
-    ports:
-      - 127.0.0.1:3001:8080
-    environment:
-      - OLLAMA_API_BASE_URL=http://ollama:11434/api
-    networks:
-      - caddy
-      - ollama
-
   open-webui:
     image: ghcr.io/open-webui/open-webui:v0.1.119
     restart: unless-stopped
     init: true
     volumes:
       - ollama-webui:/app/backend/data
-    ports:
-      - 127.0.0.1:3002:8080
     networks:
       - caddy
     environment:
       - OPENAI_API_BASE_URL=http://litellm:4000
       - OPENAI_API_KEY=sk-openwebui
 
-  nextchat:
-    image: nextchat:custom
+  yakgpt:
+    image: yakgpt/yakgpt:latest
     restart: unless-stopped
-    ports:
-      - 127.0.0.1:3003:3000
+    networks:
+      - caddy
+
+  nextchat:
+    image: ${NEXTCHAT_IMAGE:-yidadaa/chatgpt-next-web:v2.11.3}
+    restart: unless-stopped
     networks:
       - caddy
     environment:
@@ -110,13 +100,17 @@ services:
       - HIDE_USER_API_KEY=1
       - CUSTOM_MODELS=-all,openai-gpt-3.5-turbo,openai-gpt-4-turbo,google-gemini-1.5-pro,anthropic-claude-3-sonnet,anthropic-claude-3-opus
 
-  yakgpt:
-    image: yakgpt/yakgpt:latest
+  ollama-webui:
+    image: ollama-webui:local
     restart: unless-stopped
-    ports:
-      - 127.0.0.1:3004:3000
+    init: true
+    environment:
+      - OLLAMA_API_BASE_URL=http://ollama:11434/api
     networks:
       - caddy
+      - ollama
+    profiles:
+      - custom-ui
 
 networks:
   caddy:

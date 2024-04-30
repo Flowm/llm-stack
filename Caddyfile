@@ -15,16 +15,6 @@
 	header_up X-Real-IP {http.request.remote.host}
 }
 
-(openai_proxy) {
-	route /openai/v1/* {
-		uri strip_prefix /openai
-		reverse_proxy https://api.openai.com {
-			header_up Host api.openai.com
-			header_up Authorization "Bearer {$OPENAI_API_KEY}"
-		}
-	}
-}
-
 (litellm_proxy) {
 	route /openai/v1/* {
 		uri strip_prefix /openai
@@ -42,19 +32,18 @@ http://litellm.{$FQDN} {
 	}
 }
 
-http://chat.{$FQDN} :80 {
+http://webui.{$FQDN} :80 {
 	import default
-	import litellm_proxy
 
-	reverse_proxy http://ollama-webui-local:8080 {
+	reverse_proxy http://open-webui:8080 {
 		import default_proxy_config
 	}
 }
 
-http://webui.{$FQDN} {
+http://yakgpt.{$FQDN} {
 	import default
 
-	reverse_proxy http://open-webui:8080 {
+	reverse_proxy http://yakgpt:3000 {
 		import default_proxy_config
 	}
 }
@@ -68,10 +57,11 @@ http://nextchat.{$FQDN} {
 	}
 }
 
-http://yakgpt.{$FQDN} {
+http://chat.{$FQDN} {
 	import default
+	import litellm_proxy
 
-	reverse_proxy http://yakgpt:3000 {
+	reverse_proxy http://ollama-webui:8080 {
 		import default_proxy_config
 	}
 }
