@@ -18,8 +18,8 @@ model_list:
     litellm_params:
       # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
       model: vertex_ai/gemini-1.5-pro-preview-0409
-      vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
-      vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
+      project: os.environ/GOOGLE_VERTEX_PROJECT
+      region_name: os.environ/GOOGLE_VERTEX_LOCATION
   - model_name: anthropic-claude-3-sonnet
     litellm_params:
       # https://docs.anthropic.com/claude/docs/models-overview

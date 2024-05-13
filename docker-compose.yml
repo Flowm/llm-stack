@@ -15,7 +15,7 @@ services:
       - OPENAI_API_KEY=$OPENAI_API_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:main-v1.35.18
+    image: ghcr.io/berriai/litellm:main-v1.37.7
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -51,7 +51,7 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
   ollama:
-    image: ollama/ollama:0.1.32
+    image: ollama/ollama:0.1.37
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
@@ -72,7 +72,7 @@ services:
               capabilities: [gpu]
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.1.119
+    image: ghcr.io/open-webui/open-webui:v0.1.124
     restart: unless-stopped
     init: true
     volumes:
@@ -90,7 +90,7 @@ services:
       - caddy
 
   nextchat:
-    image: ${NEXTCHAT_IMAGE:-yidadaa/chatgpt-next-web:v2.11.3}
+    image: ${NEXTCHAT_IMAGE:-yidadaa/chatgpt-next-web:v2.12.2}
     restart: unless-stopped
     networks:
       - caddy
