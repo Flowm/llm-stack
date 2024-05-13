@@ -98,7 +98,7 @@ services:
       - OPENAI_API_KEY=any
       - BASE_URL=http://litellm:4000/
       - HIDE_USER_API_KEY=1
-      - CUSTOM_MODELS=-all,openai-gpt-3.5-turbo,openai-gpt-4-turbo,google-gemini-1.5-pro,anthropic-claude-3-sonnet,anthropic-claude-3-opus
+      - CUSTOM_MODELS=-all,openai-gpt-4o,openai-gpt-4-turbo,openai-gpt-3.5-turbo,google-gemini-1.5-pro,anthropic-claude-3-sonnet,anthropic-claude-3-opus
 
   ollama-webui:
     image: ollama-webui:local

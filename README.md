@@ -17,7 +17,8 @@ An all-in-one Docker Compose config for providing access to local and external L
 	* local-llama3-8b
 * [OpenAI](https://platform.openai.com/docs/models)
 	* openai-gpt-3.5-turbo
-	* openai-gpt-4-turbo-preview
+	* openai-gpt-4-turbo
+	* openai-gpt-4o
 * [Google](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning)
 	* google-gemini-1.5-pro
 * [Anthropic](https://docs.anthropic.com/claude/docs/models-overview)
