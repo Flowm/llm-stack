@@ -22,29 +22,24 @@ model_list:
   - model_name: google-gemini-1.5-pro
     litellm_params:
       # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
-      model: vertex_ai/gemini-1.5-pro-preview-0514
+      model: vertex_ai/gemini-1.5-pro-001
       vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
       vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
   - model_name: google-gemini-1.5-flash
     litellm_params:
       # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
-      model: vertex_ai/gemini-1.5-flash-preview-0514
+      model: vertex_ai/gemini-1.5-flash-001
       vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
       vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
-  - model_name: anthropic-claude-3-sonnet
+  - model_name: anthropic-claude-3-5-sonnet
     litellm_params:
       # https://docs.anthropic.com/claude/docs/models-overview
-      model: claude-3-sonnet-20240229
+      model: claude-3-5-sonnet-20240620
       api_key: os.environ/ANTHROPIC_API_KEY
-  - model_name: anthropic-claude-3-opus
-    litellm_params:
-      # https://docs.anthropic.com/claude/docs/models-overview
-      model: claude-3-opus-20240229
-      api_key: os.environ/ANTHROPIC_API_KEY
-  - model_name: groq-llama3-70b
+  - model_name: groq-llama3.1-70b
     litellm_params:
       # https://console.groq.com/docs/models
-      model: groq/llama3-70b-8192
+      model: groq/llama-3.1-70b-versatile
       api_key: os.environ/GROQ_API_KEY
   - model_name: local-google-gemma
     litellm_params:
