@@ -9,15 +9,15 @@ model_list:
       # https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4
       model: gpt-4-turbo
       api_key: os.environ/OPENAI_API_KEY
-  - model_name: openai-gpt-4-turbo-preview
-    litellm_params:
-      # https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4
-      model: gpt-4-turbo-preview
-      api_key: os.environ/OPENAI_API_KEY
   - model_name: openai-gpt-4o
     litellm_params:
       # https://platform.openai.com/docs/models/gpt-4o
       model: gpt-4o
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: openai-o1
+    litellm_params:
+      # https://platform.openai.com/docs/models/o1
+      model: o1-preview
       api_key: os.environ/OPENAI_API_KEY
   - model_name: google-gemini-1.5-pro
     litellm_params:
