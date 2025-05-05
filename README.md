@@ -31,6 +31,7 @@ An all-in-one Docker Compose config for providing access to local and external L
 
 * [Open WebUI](https://github.com/open-webui/open-webui)
 * [NextChat](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web)
+* [AnythingLLM](https://github.com/Mintplex-Labs/anything-llm)
 
 ## Getting Started
 
