@@ -85,12 +85,6 @@ services:
       - OPENAI_API_BASE_URL=http://litellm:4000
       - OPENAI_API_KEY=sk-openwebui
 
-  yakgpt:
-    image: yakgpt/yakgpt:latest
-    restart: unless-stopped
-    networks:
-      - caddy
-
   nextchat:
     image: ${NEXTCHAT_IMAGE:-yidadaa/chatgpt-next-web:v2.16.0}
     restart: unless-stopped

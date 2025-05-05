@@ -40,14 +40,6 @@ http://webui.{$FQDN} :80 {
 	}
 }
 
-http://yakgpt.{$FQDN} {
-	import default
-
-	reverse_proxy http://yakgpt:3000 {
-		import default_proxy_config
-	}
-}
-
 http://nextchat.{$FQDN} {
 	import default
 	import litellm_proxy
