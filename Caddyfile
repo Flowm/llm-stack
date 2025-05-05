@@ -32,10 +32,18 @@ http://litellm.{$FQDN} {
 	}
 }
 
-http://webui.{$FQDN} :80 {
+http://webui.{$FQDN} {
 	import default
 
 	reverse_proxy http://open-webui:8080 {
+		import default_proxy_config
+	}
+}
+
+http://anything.{$FQDN} :80 {
+	import default
+
+	reverse_proxy http://anything:3001 {
 		import default_proxy_config
 	}
 }

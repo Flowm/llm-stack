@@ -73,6 +73,22 @@ services:
               count: 1
               capabilities: [gpu]
 
+  anything:
+    image: mintplexlabs/anythingllm:1.8.0
+    restart: unless-stopped
+    volumes:
+      - anythingllm-ui:/app/server/storage
+    environment:
+      - STORAGE_DIR=/app/server/storage
+      - LLM_PROVIDER=litellm
+      - LITE_LLM_MODEL_PREF=openai-gpt-4o
+      - LITE_LLM_MODEL_TOKEN_LIMIT=4096
+      - LITE_LLM_BASE_PATH=http://litellm:4000
+      - EMBEDDING_ENGINE=native
+      - VECTOR_DB=lancedb
+    networks: 
+      - caddy
+
   open-webui:
     image: ghcr.io/open-webui/open-webui:v0.6.6
     restart: unless-stopped
@@ -114,6 +130,7 @@ networks:
   ollama:
 
 volumes:
+  anythingllm-ui:
   caddy_config:
   caddy_data:
   postgres_db:
