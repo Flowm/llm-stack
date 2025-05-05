@@ -15,7 +15,7 @@ services:
       - OPENAI_API_KEY=$OPENAI_API_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:main-v1.42.12
+    image: ghcr.io/berriai/litellm:main-v1.68.0-stable
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -63,6 +63,8 @@ services:
       - OLLAMA_ORIGINS=*
     networks:
       - ollama
+    profiles:
+      - gpu
     deploy:
       resources:
         reservations:
@@ -72,7 +74,7 @@ services:
               capabilities: [gpu]
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.3.11
+    image: ghcr.io/open-webui/open-webui:v0.6.6
     restart: unless-stopped
     init: true
     volumes:
@@ -83,14 +85,8 @@ services:
       - OPENAI_API_BASE_URL=http://litellm:4000
       - OPENAI_API_KEY=sk-openwebui
 
-  yakgpt:
-    image: yakgpt/yakgpt:latest
-    restart: unless-stopped
-    networks:
-      - caddy
-
   nextchat:
-    image: ${NEXTCHAT_IMAGE:-yidadaa/chatgpt-next-web:v2.12.3}
+    image: ${NEXTCHAT_IMAGE:-yidadaa/chatgpt-next-web:v2.16.0}
     restart: unless-stopped
     networks:
       - caddy
