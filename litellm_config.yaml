@@ -1,12 +1,7 @@
 model_list:
-  - model_name: openai-gpt-3.5-turbo
-    litellm_params:
-      # https://platform.openai.com/docs/models/gpt-3-5-turbo
-      model: gpt-3.5-turbo
-      api_key: os.environ/OPENAI_API_KEY
   - model_name: openai-gpt-4-turbo
     litellm_params:
-      # https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4
+      # https://platform.openai.com/docs/models/gpt-4-turbo
       model: gpt-4-turbo
       api_key: os.environ/OPENAI_API_KEY
   - model_name: openai-gpt-4o
@@ -14,32 +9,36 @@ model_list:
       # https://platform.openai.com/docs/models/gpt-4o
       model: gpt-4o
       api_key: os.environ/OPENAI_API_KEY
-  - model_name: openai-o1
+  - model_name: openai-o3
     litellm_params:
-      # https://platform.openai.com/docs/models/o1
-      model: o1-preview
+      # https://platform.openai.com/docs/models/o3
+      model: o3
       api_key: os.environ/OPENAI_API_KEY
-  - model_name: google-gemini-1.5-pro
+  - model_name: openai-o4
     litellm_params:
-      # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
-      model: vertex_ai/gemini-1.5-pro-001
-      vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
-      vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
-  - model_name: google-gemini-1.5-flash
+      # https://platform.openai.com/docs/models/o4-mini
+      model: o4-mini
+      api_key: os.environ/OPENAI_API_KEY
+#  - model_name: google-gemini-2.0-flash
+#    litellm_params:
+#      # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
+#      model: vertex_ai/gemini-2.0-flash-001
+#      vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
+#      vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
+  - model_name: anthropic-claude-3-7-sonnet
     litellm_params:
-      # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
-      model: vertex_ai/gemini-1.5-flash-001
-      vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
-      vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
+      # https://docs.anthropic.com/claude/docs/models-overview
+      model: claude-3-7-sonnet-latest
+      api_key: os.environ/ANTHROPIC_API_KEY
   - model_name: anthropic-claude-3-5-sonnet
     litellm_params:
       # https://docs.anthropic.com/claude/docs/models-overview
-      model: claude-3-5-sonnet-20240620
+      model: claude-3-5-sonnet-latest
       api_key: os.environ/ANTHROPIC_API_KEY
-  - model_name: groq-llama3.1-70b
+  - model_name: groq-llama-3.3-70b
     litellm_params:
       # https://console.groq.com/docs/models
-      model: groq/llama-3.1-70b-versatile
+      model: groq/llama-3.3-70b-versatile
       api_key: os.environ/GROQ_API_KEY
   - model_name: local-google-gemma
     litellm_params:
