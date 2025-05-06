@@ -43,7 +43,7 @@ http://webui.{$FQDN} {
 http://anything.{$FQDN} :80 {
 	import default
 
-	reverse_proxy http://anything:3001 {
+	reverse_proxy http://anythingllm:3001 {
 		import default_proxy_config
 	}
 }
