@@ -43,6 +43,12 @@ http://webui.{$FQDN} {
 http://anything.{$FQDN} :80 {
 	import default
 
+	handle_path /sso/ {
+		reverse_proxy http://anythingllm-auth:5000 {
+			import default_proxy_config
+		}
+	}
+
 	reverse_proxy http://anythingllm:3001 {
 		import default_proxy_config
 	}

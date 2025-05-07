@@ -44,7 +44,7 @@ An all-in-one Docker Compose config for providing access to local and external L
 ### Setup
 
 1. Clone this repository
-1. Copy the default config `cp default.env .env`
+1. Copy the default config `cp env.default .env` and `cp anythingllm.env.default .anythingllm.env`
 1. Edit `.env` and add the relevant API keys
 1. Start the Docker Compose configuration: `docker-compose up`
 1. Access the Caddy webserver at `http://localhost:3000`
