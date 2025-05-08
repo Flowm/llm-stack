@@ -51,7 +51,7 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
   ollama:
-    image: ollama/ollama:0.3.3
+    image: ollama/ollama:0.6.8
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama

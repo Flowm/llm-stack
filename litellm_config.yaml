@@ -14,7 +14,7 @@ model_list:
       # https://platform.openai.com/docs/models/o3
       model: o3
       api_key: os.environ/OPENAI_API_KEY
-  - model_name: openai-o4
+  - model_name: openai-o4-mini
     litellm_params:
       # https://platform.openai.com/docs/models/o4-mini
       model: o4-mini
@@ -40,21 +40,18 @@ model_list:
       # https://console.groq.com/docs/models
       model: groq/llama-3.3-70b-versatile
       api_key: os.environ/GROQ_API_KEY
-  - model_name: local-google-gemma
+  - model_name: groq-llama-4-maverick
     litellm_params:
-      model: ollama/gemma:latest
+      # https://console.groq.com/docs/models
+      model: groq/meta-llama/llama-4-maverick-17b-128e-instruct
+      api_key: os.environ/GROQ_API_KEY
+  - model_name: local-google-gemma3
+    litellm_params:
+      model: ollama/gemma3:27b-it-qat
       api_base: http://ollama:11434
   - model_name: local-llama3-8b
     litellm_params:
       model: ollama/llama3:8b
-      api_base: http://ollama:11434
-  - model_name: local-mistral
-    litellm_params:
-      model: ollama/mistral:latest
-      api_base: http://ollama:11434
-  - model_name: local-mixtral-8x7b
-    litellm_params:
-      model: ollama/mixtral:8x7b
       api_base: http://ollama:11434
 
 litellm_settings:

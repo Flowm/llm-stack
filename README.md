@@ -11,21 +11,22 @@ An all-in-one Docker Compose config for providing access to local and external L
 
 ### Models
 
-* Local
-	* local-mistral
-	* local-mixtral-8x7b
-	* local-llama3-8b
+* Local (via [Ollama](https://ollama.com/search))
+    * local-google-gemma3
+    * local-llama3-8b
 * [OpenAI](https://platform.openai.com/docs/models)
-	* openai-gpt-3.5-turbo
-	* openai-gpt-4-turbo
-	* openai-gpt-4o
+    * openai-gpt-4-turbo
+    * openai-gpt-4o
+    * openai-o3
+    * openai-o4-mini
 * [Google](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning)
-	* google-gemini-1.5-pro
+    * google-gemini-1.5-pro
 * [Anthropic](https://docs.anthropic.com/claude/docs/models-overview)
-	* anthropic-claude-3-sonnet
-	* anthropic-claude-3-opus
+    * anthropic-claude-3-7-sonnet
+    * anthropic-claude-3-5-sonnet
 * [Groq](https://console.groq.com/docs/models)
-	* groq-llama3-70b
+    * groq-llama-3.3-70b
+    * groq-llama-4-maverick
 
 ### Chat Frontends
 
