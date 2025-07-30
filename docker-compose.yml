@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: caddy:2.7
+    image: caddy:2.10
     restart: unless-stopped
     ports:
       - 127.0.0.1:3000:80
@@ -15,7 +15,7 @@ services:
       - OPENAI_API_KEY=$OPENAI_API_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:main-v1.68.0-stable
+    image: ghcr.io/berriai/litellm:v1.74.7-stable.patch.2
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -39,7 +39,7 @@ services:
       - UI_USERNAME=$UI_USERNAME
 
   postgres:
-    image: postgres:16.2
+    image: postgres:16.9
     restart: unless-stopped
     shm_size: 128mb
     volumes:
@@ -51,7 +51,7 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
   ollama:
-    image: ollama/ollama:0.6.8
+    image: ollama/ollama:0.10.0
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
@@ -74,7 +74,7 @@ services:
               capabilities: [gpu]
 
   anythingllm:
-    image: mintplexlabs/anythingllm:1.8.0
+    image: mintplexlabs/anythingllm:1.8.4
     restart: unless-stopped
     init: true
     volumes:
@@ -107,7 +107,7 @@ services:
       - ANYTHINGLLM_API_TOKEN=$ANYTHINGLLM_API_TOKEN
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.6.6
+    image: ghcr.io/open-webui/open-webui:v0.6.18
     restart: unless-stopped
     init: true
     volumes:
