@@ -68,3 +68,4 @@ litellm_settings:
 general_settings:
   proxy_batch_write_at: 60
   database_url: os.environ/POSTGRES_DB_URL
+  user_header_name: X-OpenWebUI-User-Email

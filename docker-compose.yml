@@ -36,8 +36,9 @@ services:
       - GROQ_API_KEY=$GROQ_API_KEY
       - OPENAI_API_KEY=$OPENAI_API_KEY
       - POSTGRES_DB_URL=$POSTGRES_DB_URL
-      - UI_PASSWORD=$UI_PASSWORD
-      - UI_USERNAME=$UI_USERNAME
+      - LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY
+      - UI_PASSWORD=$LITELLM_UI_PASSWORD
+      - UI_USERNAME=$LITELLM_UI_USERNAME
 
   postgres:
     image: postgres:16.9
@@ -84,15 +85,17 @@ services:
     networks:
       - caddy
     environment:
-      - STORAGE_DIR=/app/server/storage
-      - LLM_PROVIDER=litellm
+      - DISABLE_TELEMETRY=true
+      - DISABLE_VIEW_CHAT_HISTORY=true
+      - EMBEDDING_ENGINE=native
+      - LITE_LLM_API_KEY=$LITELLM_MASTER_KEY
+      - LITE_LLM_BASE_PATH=http://litellm:4000
       - LITE_LLM_MODEL_PREF=openai-gpt-4o
       - LITE_LLM_MODEL_TOKEN_LIMIT=16384
-      - LITE_LLM_BASE_PATH=http://litellm:4000
-      - EMBEDDING_ENGINE=native
-      - VECTOR_DB=lancedb
+      - LLM_PROVIDER=litellm
       - SIMPLE_SSO_ENABLED=true
-      - DISABLE_VIEW_CHAT_HISTORY=true
+      - STORAGE_DIR=/app/server/storage
+      - VECTOR_DB=lancedb
 
   anythingllm-auth:
     build: anythingllm-auth
@@ -113,9 +116,14 @@ services:
       - ollama-webui:/app/backend/data
     networks:
       - caddy
+      - ollama
     environment:
+      - ENABLE_ADMIN_CHAT_ACCESS=False
+      - ENABLE_FORWARD_USER_INFO_HEADERS=True
+      - OLLAMA_BASE_URL=http://ollama:11434
       - OPENAI_API_BASE_URL=http://litellm:4000
-      - OPENAI_API_KEY=sk-openwebui
+      - OPENAI_API_KEY=$LITELLM_MASTER_KEY
+      - WEBUI_AUTH_TRUSTED_EMAIL_HEADER=$WEBUI_AUTH_TRUSTED_EMAIL_HEADER
 
   ollama-webui:
     image: ollama-webui:local
@@ -123,6 +131,7 @@ services:
     init: true
     environment:
       - OLLAMA_API_BASE_URL=http://ollama:11434/api
+      - OPENAI_API_KEY=$LITELLM_MASTER_KEY
     networks:
       - caddy
       - ollama
