@@ -3,7 +3,8 @@ services:
     image: caddy:2.10
     restart: unless-stopped
     ports:
-      - 127.0.0.1:3000:80
+      - 127.0.0.1:3000:3000
+      - 127.0.0.1:3001:3001
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
@@ -82,8 +83,6 @@ services:
       - ./.anythingllm.env:/app/server/.env
     networks:
       - caddy
-    ports:
-      - 127.0.0.1:3001:3001
     environment:
       - STORAGE_DIR=/app/server/storage
       - LLM_PROVIDER=litellm

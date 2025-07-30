@@ -32,15 +32,7 @@ http://litellm.{$FQDN} {
 	}
 }
 
-http://webui.{$FQDN} {
-	import default
-
-	reverse_proxy http://open-webui:8080 {
-		import default_proxy_config
-	}
-}
-
-http://anything.{$FQDN} :80 {
+http://anything.{$FQDN} :3000 {
 	import default
 
 	handle_path /sso/ {
@@ -50,6 +42,14 @@ http://anything.{$FQDN} :80 {
 	}
 
 	reverse_proxy http://anythingllm:3001 {
+		import default_proxy_config
+	}
+}
+
+http://webui.{$FQDN} :3001 {
+	import default
+
+	reverse_proxy http://open-webui:8080 {
 		import default_proxy_config
 	}
 }
