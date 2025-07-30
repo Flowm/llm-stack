@@ -54,15 +54,6 @@ http://anything.{$FQDN} :80 {
 	}
 }
 
-http://nextchat.{$FQDN} {
-	import default
-	import litellm_proxy
-
-	reverse_proxy http://nextchat:3000 {
-		import default_proxy_config
-	}
-}
-
 http://chat.{$FQDN} {
 	import default
 	import litellm_proxy
