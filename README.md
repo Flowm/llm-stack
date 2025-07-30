@@ -14,6 +14,7 @@ An all-in-one Docker Compose config for providing access to local and external L
 * Local (via [Ollama](https://ollama.com/search))
     * local-google-gemma3
     * local-llama3-8b
+    * local-qwen3-30b
 * [OpenAI](https://platform.openai.com/docs/models)
     * openai-gpt-4-turbo
     * openai-gpt-4o
@@ -23,7 +24,7 @@ An all-in-one Docker Compose config for providing access to local and external L
     * google-gemini-1.5-pro
 * [Anthropic](https://docs.anthropic.com/claude/docs/models-overview)
     * anthropic-claude-3-7-sonnet
-    * anthropic-claude-3-5-sonnet
+    * anthropic-claude-4-0-sonnet
 * [Groq](https://console.groq.com/docs/models)
     * groq-llama-3.3-70b
     * groq-llama-4-maverick
