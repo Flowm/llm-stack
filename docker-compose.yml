@@ -3,8 +3,11 @@ services:
     image: caddy:2.10
     restart: unless-stopped
     ports:
+      - 127.0.0.1:8080:80
       - 127.0.0.1:3000:3000
       - 127.0.0.1:3001:3001
+      - 127.0.0.1:3002:3002
+      - 127.0.0.1:3003:3004
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
@@ -14,6 +17,7 @@ services:
     environment:
       - FQDN=$FQDN
       - OPENAI_API_KEY=$OPENAI_API_KEY
+      - LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY
 
   litellm:
     image: ghcr.io/berriai/litellm:v1.74.7-stable.patch.2
@@ -25,8 +29,6 @@ services:
       - caddy
       - postgres
       - ollama
-    ports:
-      - 127.0.0.1:4000:4000
     command: [ "--config", "/app/litellm_config.yaml", "--port", "4000", "--num_workers", "4" ]
     environment:
       - ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY
@@ -103,8 +105,6 @@ services:
     init: true
     networks:
       - caddy
-    ports:
-      - 127.0.0.1:5000:5000
     environment:
       - ANYTHINGLLM_API_TOKEN=$ANYTHINGLLM_API_TOKEN
 

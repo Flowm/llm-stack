@@ -19,12 +19,13 @@
 	route /openai/v1/* {
 		uri strip_prefix /openai
 		reverse_proxy http://litellm:4000 {
-			header_up Authorization "Bearer {http.request.header.X-Token-User-Email}"
+			header_up Authorization "Bearer {$LITELLM_MASTER_KEY}"
+			header_up X-OpenWebUI-User-Email "{http.request.header.X-Token-User-Email}"
 		}
 	}
 }
 
-http://litellm.{$FQDN} {
+http://litellm.{$FQDN} :3000 {
 	import default
 
 	reverse_proxy http://litellm:4000 {
@@ -32,7 +33,7 @@ http://litellm.{$FQDN} {
 	}
 }
 
-http://anything.{$FQDN} :3000 {
+http://anything.{$FQDN} :3001 {
 	import default
 
 	handle_path /sso/ {
@@ -46,7 +47,7 @@ http://anything.{$FQDN} :3000 {
 	}
 }
 
-http://webui.{$FQDN} :3001 {
+http://webui.{$FQDN} :3002 {
 	import default
 
 	reverse_proxy http://open-webui:8080 {
@@ -54,7 +55,7 @@ http://webui.{$FQDN} :3001 {
 	}
 }
 
-http://chat.{$FQDN} {
+http://chat.{$FQDN} :3003 {
 	import default
 	import litellm_proxy
 
