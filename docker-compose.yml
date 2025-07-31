@@ -118,12 +118,16 @@ services:
       - caddy
       - ollama
     environment:
-      - ENABLE_ADMIN_CHAT_ACCESS=False
-      - ENABLE_FORWARD_USER_INFO_HEADERS=True
+      - DEFAULT_USER_ROLE=user
+      - ENABLE_ADMIN_CHAT_ACCESS=false
+      - ENABLE_ADMIN_EXPORT=false
+      - ENABLE_FORWARD_USER_INFO_HEADERS=true
       - OLLAMA_BASE_URL=http://ollama:11434
       - OPENAI_API_BASE_URL=http://litellm:4000
       - OPENAI_API_KEY=$LITELLM_MASTER_KEY
       - WEBUI_AUTH_TRUSTED_EMAIL_HEADER=$WEBUI_AUTH_TRUSTED_EMAIL_HEADER
+      - WEBUI_AUTH_TRUSTED_NAME_HEADER=$WEBUI_AUTH_TRUSTED_NAME_HEADER
+      #- BYPASS_MODEL_ACCESS_CONTROL=true
 
   ollama-webui:
     image: ollama-webui:local
