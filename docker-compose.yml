@@ -20,7 +20,7 @@ services:
       - LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:v1.74.7-stable.patch.2
+    image: ghcr.io/berriai/litellm:v1.74.9-stable.patch.1
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -55,7 +55,7 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
   ollama:
-    image: ollama/ollama:0.10.0
+    image: ollama/ollama:0.10.1
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
