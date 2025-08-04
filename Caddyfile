@@ -30,6 +30,7 @@ http://litellm.{$FQDN} :3000 {
 
 	reverse_proxy http://litellm:4000 {
 		import default_proxy_config
+		header_up Authorization "Bearer {$LITELLM_MASTER_KEY}"
 	}
 }
 
