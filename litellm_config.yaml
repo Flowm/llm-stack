@@ -61,6 +61,10 @@ model_list:
     litellm_params:
       model: ollama/qwen3:30b-a3b
       api_base: http://ollama:11434
+  - model_name: local-gpt-oss-20b
+    litellm_params:
+      model: ollama/gpt-oss:20b
+      api_base: http://ollama:11434
 
 litellm_settings:
   drop_params: True
