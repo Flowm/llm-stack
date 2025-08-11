@@ -1,8 +1,18 @@
 model_list:
-  - model_name: openai-gpt-4-turbo
+  - model_name: openai-gpt-5
     litellm_params:
-      # https://platform.openai.com/docs/models/gpt-4-turbo
-      model: gpt-4-turbo
+      # https://platform.openai.com/docs/models/gpt-5
+      model: gpt-5
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: openai-gpt-5-mini
+    litellm_params:
+      # https://platform.openai.com/docs/models/gpt-5-mini
+      model: gpt-5-mini
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: openai-gpt-5-nano
+    litellm_params:
+      # https://platform.openai.com/docs/models/gpt-5-nano
+      model: gpt-5-nano
       api_key: os.environ/OPENAI_API_KEY
   - model_name: openai-gpt-4o
     litellm_params:
@@ -14,17 +24,12 @@ model_list:
       # https://platform.openai.com/docs/models/o3
       model: o3
       api_key: os.environ/OPENAI_API_KEY
-  - model_name: openai-o4-mini
-    litellm_params:
-      # https://platform.openai.com/docs/models/o4-mini
-      model: o4-mini
-      api_key: os.environ/OPENAI_API_KEY
-#  - model_name: google-gemini-2.0-flash
-#    litellm_params:
-#      # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
-#      model: vertex_ai/gemini-2.0-flash-001
-#      vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
-#      vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
+  #  - model_name: google-gemini-2.0-flash
+  #    litellm_params:
+  #      # https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning
+  #      model: vertex_ai/gemini-2.0-flash-001
+  #      vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
+  #      vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
   - model_name: anthropic-claude-3-7-sonnet
     litellm_params:
       # https://docs.anthropic.com/claude/docs/models-overview
