@@ -20,7 +20,7 @@ services:
       - LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:v1.74.15-stable
+    image: ghcr.io/berriai/litellm:v1.75.8-stable
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -29,7 +29,7 @@ services:
       - caddy
       - postgres
       - ollama
-    command: [ "--config", "/app/litellm_config.yaml", "--port", "4000", "--num_workers", "4" ]
+    command: ["--config", "/app/litellm_config.yaml", "--port", "4000", "--num_workers", "4"]
     environment:
       - ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY
       - GOOGLE_APPLICATION_CREDENTIALS=/app/google_credentials.json
@@ -55,7 +55,7 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
   ollama:
-    image: ollama/ollama:0.11.4
+    image: ollama/ollama:0.11.8
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
@@ -78,7 +78,7 @@ services:
               capabilities: [gpu]
 
   anythingllm:
-    image: mintplexlabs/anythingllm:1.8.4
+    image: mintplexlabs/anythingllm:1.8.5
     restart: unless-stopped
     init: true
     volumes:
@@ -109,7 +109,7 @@ services:
       - ANYTHINGLLM_API_TOKEN=$ANYTHINGLLM_API_TOKEN
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.6.21
+    image: ghcr.io/open-webui/open-webui:v0.6.26
     restart: unless-stopped
     init: true
     volumes:
@@ -146,7 +146,6 @@ networks:
   caddy:
   postgres:
   ollama:
-
 volumes:
   anythingllm:
   caddy_config:
