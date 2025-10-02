@@ -20,7 +20,7 @@ services:
       - LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:v1.75.8-stable
+    image: ghcr.io/berriai/litellm:v1.77.3-stable
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -55,7 +55,7 @@ services:
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
   ollama:
-    image: ollama/ollama:0.11.8
+    image: ollama/ollama:0.12.3
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
@@ -109,7 +109,7 @@ services:
       - ANYTHINGLLM_API_TOKEN=$ANYTHINGLLM_API_TOKEN
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.6.26
+    image: ghcr.io/open-webui/open-webui:v0.6.32
     restart: unless-stopped
     init: true
     volumes:
