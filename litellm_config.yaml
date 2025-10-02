@@ -30,12 +30,12 @@ model_list:
   #      model: vertex_ai/gemini-2.0-flash-001
   #      vertex_project: os.environ/GOOGLE_VERTEX_PROJECT
   #      vertex_location: os.environ/GOOGLE_VERTEX_LOCATION
-  - model_name: anthropic-claude-3-7-sonnet
+  - model_name: anthropic-sonnet-4-5
     litellm_params:
       # https://docs.anthropic.com/claude/docs/models-overview
-      model: claude-3-7-sonnet-20250219
+      model: claude-sonnet-4-5-20250929
       api_key: os.environ/ANTHROPIC_API_KEY
-  - model_name: anthropic-claude-4-0-sonnet
+  - model_name: anthropic-sonnet-4-0
     litellm_params:
       # https://docs.anthropic.com/claude/docs/models-overview
       model: claude-sonnet-4-20250514
