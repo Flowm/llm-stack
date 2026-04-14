@@ -35,9 +35,9 @@ model_list:
       # https://console.groq.com/docs/models
       model: groq/llama-3.3-70b-versatile
       api_key: os.environ/GROQ_API_KEY
-  - model_name: local-google-gemma3
+  - model_name: local-google-gemma4
     litellm_params:
-      model: ollama/gemma3:27b-it-qat
+      model: ollama/gemma4:26b
       api_base: http://ollama:11434
   - model_name: local-llama3-1-8b
     litellm_params:
