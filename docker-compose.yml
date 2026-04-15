@@ -92,10 +92,12 @@ services:
       - EMBEDDING_ENGINE=native
       - LITE_LLM_API_KEY=$LITELLM_MASTER_KEY
       - LITE_LLM_BASE_PATH=http://litellm:4000
-      - LITE_LLM_MODEL_PREF=openai-gpt-4o
+      - LITE_LLM_MODEL_PREF=openai-gpt-5-4
       - LITE_LLM_MODEL_TOKEN_LIMIT=16384
       - LLM_PROVIDER=litellm
       - SIMPLE_SSO_ENABLED=true
+      - SIMPLE_SSO_NO_LOGIN=true
+      - SIMPLE_SSO_NO_LOGIN_REDIRECT=https://anything.$FQDN/auth
       - STORAGE_DIR=/app/server/storage
       - VECTOR_DB=lancedb
 

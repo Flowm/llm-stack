@@ -37,7 +37,7 @@ http://litellm.{$FQDN} :3000 {
 http://anything.{$FQDN} :3001 {
 	import default
 
-	handle_path /sso/ {
+	handle_path /auth {
 		reverse_proxy http://anythingllm-auth:5000 {
 			import default_proxy_config
 		}
