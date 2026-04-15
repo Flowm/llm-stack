@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: caddy:2.11
+    image: caddy:2.11@sha256:2acb10cebb92eea91a40b76691aff73adde9151416facbeab630bbc66d0969ab
     restart: unless-stopped
     ports:
       - 127.0.0.1:8080:80
@@ -20,7 +20,7 @@ services:
       - LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY
 
   litellm:
-    image: ghcr.io/berriai/litellm:v1.83.3-stable
+    image: ghcr.io/berriai/litellm:v1.83.3-stable@sha256:1bc003a50e5c9177909975e1523cf780a5f385c76216e26e96c50fb02611209f
     restart: unless-stopped
     volumes:
       - ./litellm_config.yaml:/app/litellm_config.yaml
@@ -43,11 +43,11 @@ services:
       - UI_USERNAME=$LITELLM_UI_USERNAME
 
   database:
-    image: postgres:16.9
+    image: postgres:18.3@sha256:52e6ffd11fddd081ae63880b635b2a61c14008c17fc98cdc7ce5472265516dd0
     restart: unless-stopped
     shm_size: 128mb
     volumes:
-      - postgres_db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
     networks:
       - database
     environment:
@@ -55,7 +55,7 @@ services:
       - POSTGRES_PASSWORD=$DATABASE_PASS
 
   ollama:
-    image: ollama/ollama:0.20.7
+    image: ollama/ollama:0.20.7@sha256:487324a9312240e3e122446f351b1f1e3f68d884ef854c246db2e08792440d94
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
@@ -78,7 +78,7 @@ services:
               capabilities: [gpu]
 
   anythingllm:
-    image: mintplexlabs/anythingllm:1.12.0
+    image: mintplexlabs/anythingllm:1.12.0@sha256:4245dd11e0f94d4ee60e5639984fbce0e90b11b589b572ee8811749a218cd41b
     restart: unless-stopped
     init: true
     volumes:
@@ -111,7 +111,7 @@ services:
       - ANYTHINGLLM_API_TOKEN=$ANYTHINGLLM_API_TOKEN
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.8.12
+    image: ghcr.io/open-webui/open-webui:v0.8.12@sha256:8113fa5510020ef05a44afc0c42d33eabeeb2524a996e3e3fb8c437c00f0d792
     restart: unless-stopped
     init: true
     volumes:
@@ -152,6 +152,6 @@ volumes:
   anythingllm:
   caddy_config:
   caddy_data:
-  postgres_db:
+  postgres_data:
   ollama-webui:
   ollama:
