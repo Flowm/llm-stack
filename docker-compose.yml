@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: caddy:2.11@sha256:cfeb0b281bc44a5a51fecde39e9e577c60d863c0b6196e6bbdf58fd00960887f
+    image: caddy:2.11@sha256:df7f1c2fb114453b951de51a98efc010db1655a92c2e86be6706714e2417a78d
     restart: unless-stopped
     ports:
       - 127.0.0.1:8080:80
@@ -43,7 +43,7 @@ services:
       - UI_USERNAME=$LITELLM_UI_USERNAME
 
   database:
-    image: postgres:18.4@sha256:8ff36f3c66371cba71d20ceedccfc3de9669a68737607888c4ef0af93abe8e39
+    image: postgres:18.6@sha256:4ef4dbc939d61acea57712655ddb4b4ab27419c913f94cca0cd57cb3ea3c2280
     restart: unless-stopped
     shm_size: 128mb
     volumes:
@@ -55,7 +55,7 @@ services:
       - POSTGRES_PASSWORD=$DATABASE_PASS
 
   ollama:
-    image: ollama/ollama:0.30.7@sha256:46399ef084d97b381955b5dc585c5d836dbe7ed3f79f170d1c04660fed511e3a
+    image: ollama/ollama:0.33.3@sha256:32931b46719f673c05fdbaa81ccb26da18ea4a1c57590a754874ab28ba269eb2
     restart: unless-stopped
     volumes:
       - ollama:/root/.ollama
@@ -78,7 +78,7 @@ services:
               capabilities: [gpu]
 
   anythingllm:
-    image: mintplexlabs/anythingllm:1.14.0@sha256:316505ac362555b92ae6ec5d7f6e060d981c79d528f0cf4460969cdd4e59d918
+    image: mintplexlabs/anythingllm:1.16.1@sha256:05617e7bece7fd6eddc4f5b4176cd87fff74d7da88d988a6109b95481cce122c
     restart: unless-stopped
     init: true
     volumes:
@@ -111,7 +111,7 @@ services:
       - ANYTHINGLLM_API_TOKEN=$ANYTHINGLLM_API_TOKEN
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.9.6@sha256:90eae5b419e40b4c3dd684582b2c83440b36f9ae2f6532c09639b2ba4ee65158
+    image: ghcr.io/open-webui/open-webui:v0.11.3@sha256:41daa0cf2561a5d4c8d1ff31ee2a98d93ab4d3ac2605cac69366ff6a3374a933
     restart: unless-stopped
     init: true
     volumes:
